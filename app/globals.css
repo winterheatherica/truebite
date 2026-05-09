@@ -24,3 +24,308 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+:root {
+  --rp-primary:      #D45E7A;
+  --rp-secondary:    #F0A58A;
+  --rp-accent:       #F5C518;
+  --rp-background:   #FDF8F5;
+  --rp-foreground:   #1C1410;
+  --rp-muted:        #C8B4B8;
+  --rp-border:       #EDD8DC;
+  --rp-destructive:  #C0392B;
+
+  --rp-primary-deep:  #9B2D4A;
+  --rp-primary-dark:  #B8365A;
+  --rp-primary-light: #F4C0D1;
+  --rp-primary-pale:  #FAE8EE;
+
+  --rp-secondary-deep: #D47A5A;
+  --rp-secondary-pale: #FDF4EC;
+
+  --rp-accent-deep:   #C8A000;
+  --rp-accent-pale:   #FEF7D6;
+
+  --rp-dark-1:        #3D1E28;
+  --rp-dark-2:        #2A1418;
+}
+
+:root {
+  --grad-rose-bloom-0:    linear-gradient(0deg,   #D45E7A 0%, #F0A58A 100%);
+  --grad-rose-bloom-45:   linear-gradient(45deg,  #D45E7A 0%, #F0A58A 100%);
+  --grad-rose-bloom-90:   linear-gradient(90deg,  #D45E7A 0%, #F0A58A 100%);
+  --grad-rose-bloom-135:  linear-gradient(135deg, #D45E7A 0%, #F0A58A 100%); /* OP */
+  --grad-rose-bloom-180:  linear-gradient(180deg, #D45E7A 0%, #F0A58A 100%);
+  --grad-rose-bloom-225:  linear-gradient(225deg, #D45E7A 0%, #F0A58A 100%);
+  --grad-rose-bloom-270:  linear-gradient(270deg, #D45E7A 0%, #F0A58A 100%);
+  --grad-rose-bloom-315:  linear-gradient(315deg, #D45E7A 0%, #F0A58A 100%);
+}
+
+:root {
+  --grad-pepper-gold-0:   linear-gradient(0deg,   #D45E7A 0%, #F5C518 100%);
+  --grad-pepper-gold-45:  linear-gradient(45deg,  #D45E7A 0%, #F5C518 100%);
+  --grad-pepper-gold-90:  linear-gradient(90deg,  #D45E7A 0%, #F5C518 100%);
+  --grad-pepper-gold-135: linear-gradient(135deg, #D45E7A 0%, #F5C518 100%); /* OP */
+  --grad-pepper-gold-180: linear-gradient(180deg, #D45E7A 0%, #F5C518 100%);
+  --grad-pepper-gold-225: linear-gradient(225deg, #D45E7A 0%, #F5C518 100%);
+  --grad-pepper-gold-270: linear-gradient(270deg, #D45E7A 0%, #F5C518 100%);
+  --grad-pepper-gold-315: linear-gradient(315deg, #D45E7A 0%, #F5C518 100%);
+}
+
+:root {
+  --grad-peach-honey-0:   linear-gradient(0deg,   #F0A58A 0%, #F5C518 100%);
+  --grad-peach-honey-45:  linear-gradient(45deg,  #F0A58A 0%, #F5C518 100%);
+  --grad-peach-honey-90:  linear-gradient(90deg,  #F0A58A 0%, #F5C518 100%);
+  --grad-peach-honey-135: linear-gradient(135deg, #F0A58A 0%, #F5C518 100%); /* OP */
+  --grad-peach-honey-180: linear-gradient(180deg, #F0A58A 0%, #F5C518 100%);
+  --grad-peach-honey-225: linear-gradient(225deg, #F0A58A 0%, #F5C518 100%);
+  --grad-peach-honey-270: linear-gradient(270deg, #F0A58A 0%, #F5C518 100%);
+  --grad-peach-honey-315: linear-gradient(315deg, #F0A58A 0%, #F5C518 100%);
+}
+
+:root {
+  --grad-dark-spice-0:    linear-gradient(0deg,   #1C1410 0%, #3D1E28 100%);
+  --grad-dark-spice-45:   linear-gradient(45deg,  #1C1410 0%, #3D1E28 100%);
+  --grad-dark-spice-90:   linear-gradient(90deg,  #1C1410 0%, #3D1E28 100%);
+  --grad-dark-spice-135:  linear-gradient(135deg, #1C1410 0%, #3D1E28 100%); /* OP */
+  --grad-dark-spice-180:  linear-gradient(180deg, #1C1410 0%, #3D1E28 100%);
+  --grad-dark-spice-225:  linear-gradient(225deg, #1C1410 0%, #3D1E28 100%);
+  --grad-dark-spice-270:  linear-gradient(270deg, #1C1410 0%, #3D1E28 100%);
+  --grad-dark-spice-315:  linear-gradient(315deg, #1C1410 0%, #3D1E28 100%);
+}
+
+:root {
+  --grad-blush-mist-0:    linear-gradient(0deg,   #FAE8EE 0%, #FDF4EC 100%);
+  --grad-blush-mist-45:   linear-gradient(45deg,  #FAE8EE 0%, #FDF4EC 100%);
+  --grad-blush-mist-90:   linear-gradient(90deg,  #FAE8EE 0%, #FDF4EC 100%);
+  --grad-blush-mist-135:  linear-gradient(135deg, #FAE8EE 0%, #FDF4EC 100%); /* OP */
+  --grad-blush-mist-180:  linear-gradient(180deg, #FAE8EE 0%, #FDF4EC 100%);
+  --grad-blush-mist-225:  linear-gradient(225deg, #FAE8EE 0%, #FDF4EC 100%);
+  --grad-blush-mist-270:  linear-gradient(270deg, #FAE8EE 0%, #FDF4EC 100%);
+  --grad-blush-mist-315:  linear-gradient(315deg, #FAE8EE 0%, #FDF4EC 100%);
+}
+
+:root {
+  --grad-full-bloom-0:    linear-gradient(0deg,   #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --grad-full-bloom-45:   linear-gradient(45deg,  #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --grad-full-bloom-90:   linear-gradient(90deg,  #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --grad-full-bloom-135:  linear-gradient(135deg, #B8365A 0%, #D45E7A 50%, #F0A58A 100%); /* OP */
+  --grad-full-bloom-180:  linear-gradient(180deg, #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --grad-full-bloom-225:  linear-gradient(225deg, #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --grad-full-bloom-270:  linear-gradient(270deg, #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --grad-full-bloom-315:  linear-gradient(315deg, #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+}
+
+:root {
+  --grad-tricolor-fire-0:    linear-gradient(0deg,   #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --grad-tricolor-fire-45:   linear-gradient(45deg,  #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --grad-tricolor-fire-90:   linear-gradient(90deg,  #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --grad-tricolor-fire-135:  linear-gradient(135deg, #9B2D4A 0%, #D45E7A 40%, #F5C518 100%); /* OP */
+  --grad-tricolor-fire-180:  linear-gradient(180deg, #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --grad-tricolor-fire-225:  linear-gradient(225deg, #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --grad-tricolor-fire-270:  linear-gradient(270deg, #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --grad-tricolor-fire-315:  linear-gradient(315deg, #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+}
+
+:root {
+  --grad-scrim-bottom:  linear-gradient(180deg, transparent 0%, rgba(28,20,16,0.85) 100%);
+  --grad-scrim-top:     linear-gradient(0deg,   transparent 0%, rgba(28,20,16,0.85) 100%);
+  --grad-scrim-left:    linear-gradient(90deg,  rgba(28,20,16,0.85) 0%, transparent 100%);
+  --grad-scrim-right:   linear-gradient(270deg, rgba(28,20,16,0.85) 0%, transparent 100%);
+  --grad-scrim-rose:    linear-gradient(180deg, transparent 0%, rgba(180,54,90,0.75) 100%);
+}
+
+:root {
+  --grad-deep-rose-0:    linear-gradient(0deg,   #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-45:   linear-gradient(45deg,  #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-90:   linear-gradient(90deg,  #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-135:  linear-gradient(135deg, #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-180:  linear-gradient(180deg, #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-225:  linear-gradient(225deg, #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-270:  linear-gradient(270deg, #1C1410 0%, #D45E7A 100%);
+  --grad-deep-rose-315:  linear-gradient(315deg, #1C1410 0%, #D45E7A 100%);
+}
+
+:root {
+  --grad-muted-petal-0:    linear-gradient(0deg,   #C8B4B8 0%, #FDF8F5 100%);
+  --grad-muted-petal-45:   linear-gradient(45deg,  #C8B4B8 0%, #FDF8F5 100%);
+  --grad-muted-petal-90:   linear-gradient(90deg,  #C8B4B8 0%, #FDF8F5 100%);
+  --grad-muted-petal-135:  linear-gradient(135deg, #C8B4B8 0%, #FDF8F5 100%); /* OP */
+  --grad-muted-petal-180:  linear-gradient(180deg, #C8B4B8 0%, #FDF8F5 100%);
+  --grad-muted-petal-225:  linear-gradient(225deg, #C8B4B8 0%, #FDF8F5 100%);
+  --grad-muted-petal-270:  linear-gradient(270deg, #C8B4B8 0%, #FDF8F5 100%);
+  --grad-muted-petal-315:  linear-gradient(315deg, #C8B4B8 0%, #FDF8F5 100%);
+}
+
+@theme inline {
+
+  --color-rp-primary:          #D45E7A;
+  --color-rp-primary-deep:     #9B2D4A;
+  --color-rp-primary-dark:     #B8365A;
+  --color-rp-primary-light:    #F4C0D1;
+  --color-rp-primary-pale:     #FAE8EE;
+
+  --color-rp-secondary:        #F0A58A;
+  --color-rp-secondary-deep:   #D47A5A;
+  --color-rp-secondary-pale:   #FDF4EC;
+
+  --color-rp-accent:           #F5C518;
+  --color-rp-accent-deep:      #C8A000;
+  --color-rp-accent-pale:      #FEF7D6;
+
+  --color-rp-background:       #FDF8F5;
+  --color-rp-foreground:       #1C1410;
+  --color-rp-dark-2:           #3D1E28;
+  --color-rp-dark-3:           #2A1418;
+
+  --color-rp-muted:            #C8B4B8;
+  --color-rp-border:           #EDD8DC;
+  --color-rp-destructive:      #C0392B;
+
+  --gradient-rose-bloom:       linear-gradient(135deg, #D45E7A 0%, #F0A58A 100%);
+  --gradient-pepper-gold:      linear-gradient(135deg, #D45E7A 0%, #F5C518 100%);
+  --gradient-peach-honey:      linear-gradient(135deg, #F0A58A 0%, #F5C518 100%);
+  --gradient-dark-spice:       linear-gradient(135deg, #1C1410 0%, #3D1E28 100%);
+  --gradient-blush-mist:       linear-gradient(135deg, #FAE8EE 0%, #FDF4EC 100%);
+  --gradient-full-bloom:       linear-gradient(135deg, #B8365A 0%, #D45E7A 50%, #F0A58A 100%);
+  --gradient-tricolor-fire:    linear-gradient(135deg, #9B2D4A 0%, #D45E7A 40%, #F5C518 100%);
+  --gradient-deep-rose:        linear-gradient(135deg, #1C1410 0%, #D45E7A 100%);
+  --gradient-muted-petal:      linear-gradient(135deg, #C8B4B8 0%, #FDF8F5 100%);
+  --gradient-scrim:            linear-gradient(180deg, transparent 0%, rgba(28,20,16,0.85) 100%);
+}
+
+.bg-rp-primary        { background-color: var(--rp-primary); }
+.bg-rp-secondary      { background-color: var(--rp-secondary); }
+.bg-rp-accent         { background-color: var(--rp-accent); }
+.bg-rp-background     { background-color: var(--rp-background); }
+.bg-rp-foreground     { background-color: var(--rp-foreground); }
+.bg-rp-muted          { background-color: var(--rp-muted); }
+.bg-rp-border         { background-color: var(--rp-border); }
+
+.text-rp-primary      { color: var(--rp-primary); }
+.text-rp-secondary    { color: var(--rp-secondary); }
+.text-rp-accent       { color: var(--rp-accent); }
+.text-rp-foreground   { color: var(--rp-foreground); }
+.text-rp-muted        { color: var(--rp-muted); }
+
+.border-rp-primary    { border-color: var(--rp-primary); }
+.border-rp-border     { border-color: var(--rp-border); }
+.border-rp-muted      { border-color: var(--rp-muted); }
+
+.bg-grad-rose-bloom   { background: var(--grad-rose-bloom-135); }
+.bg-grad-pepper-gold  { background: var(--grad-pepper-gold-135); }
+.bg-grad-peach-honey  { background: var(--grad-peach-honey-135); }
+.bg-grad-dark-spice   { background: var(--grad-dark-spice-135); }
+.bg-grad-blush-mist   { background: var(--grad-blush-mist-135); }
+.bg-grad-full-bloom   { background: var(--grad-full-bloom-135); }
+.bg-grad-tricolor-fire{ background: var(--grad-tricolor-fire-135); }
+.bg-grad-deep-rose    { background: var(--grad-deep-rose-135); }
+.bg-grad-muted-petal  { background: var(--grad-muted-petal-135); }
+
+.bg-grad-rose-bloom-0   { background: var(--grad-rose-bloom-0); }
+.bg-grad-rose-bloom-45  { background: var(--grad-rose-bloom-45); }
+.bg-grad-rose-bloom-90  { background: var(--grad-rose-bloom-90); }
+.bg-grad-rose-bloom-135 { background: var(--grad-rose-bloom-135); }
+.bg-grad-rose-bloom-180 { background: var(--grad-rose-bloom-180); }
+.bg-grad-rose-bloom-225 { background: var(--grad-rose-bloom-225); }
+.bg-grad-rose-bloom-270 { background: var(--grad-rose-bloom-270); }
+.bg-grad-rose-bloom-315 { background: var(--grad-rose-bloom-315); }
+
+.bg-grad-pepper-gold-0   { background: var(--grad-pepper-gold-0); }
+.bg-grad-pepper-gold-45  { background: var(--grad-pepper-gold-45); }
+.bg-grad-pepper-gold-90  { background: var(--grad-pepper-gold-90); }
+.bg-grad-pepper-gold-135 { background: var(--grad-pepper-gold-135); }
+.bg-grad-pepper-gold-180 { background: var(--grad-pepper-gold-180); }
+.bg-grad-pepper-gold-225 { background: var(--grad-pepper-gold-225); }
+.bg-grad-pepper-gold-270 { background: var(--grad-pepper-gold-270); }
+.bg-grad-pepper-gold-315 { background: var(--grad-pepper-gold-315); }
+
+.bg-grad-peach-honey-0   { background: var(--grad-peach-honey-0); }
+.bg-grad-peach-honey-45  { background: var(--grad-peach-honey-45); }
+.bg-grad-peach-honey-90  { background: var(--grad-peach-honey-90); }
+.bg-grad-peach-honey-135 { background: var(--grad-peach-honey-135); }
+.bg-grad-peach-honey-180 { background: var(--grad-peach-honey-180); }
+.bg-grad-peach-honey-225 { background: var(--grad-peach-honey-225); }
+.bg-grad-peach-honey-270 { background: var(--grad-peach-honey-270); }
+.bg-grad-peach-honey-315 { background: var(--grad-peach-honey-315); }
+
+.bg-grad-dark-spice-0    { background: var(--grad-dark-spice-0); }
+.bg-grad-dark-spice-45   { background: var(--grad-dark-spice-45); }
+.bg-grad-dark-spice-90   { background: var(--grad-dark-spice-90); }
+.bg-grad-dark-spice-135  { background: var(--grad-dark-spice-135); }
+.bg-grad-dark-spice-180  { background: var(--grad-dark-spice-180); }
+.bg-grad-dark-spice-225  { background: var(--grad-dark-spice-225); }
+.bg-grad-dark-spice-270  { background: var(--grad-dark-spice-270); }
+.bg-grad-dark-spice-315  { background: var(--grad-dark-spice-315); }
+
+.bg-grad-blush-mist-0    { background: var(--grad-blush-mist-0); }
+.bg-grad-blush-mist-45   { background: var(--grad-blush-mist-45); }
+.bg-grad-blush-mist-90   { background: var(--grad-blush-mist-90); }
+.bg-grad-blush-mist-135  { background: var(--grad-blush-mist-135); }
+.bg-grad-blush-mist-180  { background: var(--grad-blush-mist-180); }
+.bg-grad-blush-mist-225  { background: var(--grad-blush-mist-225); }
+.bg-grad-blush-mist-270  { background: var(--grad-blush-mist-270); }
+.bg-grad-blush-mist-315  { background: var(--grad-blush-mist-315); }
+
+.bg-grad-full-bloom-0    { background: var(--grad-full-bloom-0); }
+.bg-grad-full-bloom-45   { background: var(--grad-full-bloom-45); }
+.bg-grad-full-bloom-90   { background: var(--grad-full-bloom-90); }
+.bg-grad-full-bloom-135  { background: var(--grad-full-bloom-135); }
+.bg-grad-full-bloom-180  { background: var(--grad-full-bloom-180); }
+.bg-grad-full-bloom-225  { background: var(--grad-full-bloom-225); }
+.bg-grad-full-bloom-270  { background: var(--grad-full-bloom-270); }
+.bg-grad-full-bloom-315  { background: var(--grad-full-bloom-315); }
+
+.bg-grad-tricolor-fire-0    { background: var(--grad-tricolor-fire-0); }
+.bg-grad-tricolor-fire-45   { background: var(--grad-tricolor-fire-45); }
+.bg-grad-tricolor-fire-90   { background: var(--grad-tricolor-fire-90); }
+.bg-grad-tricolor-fire-135  { background: var(--grad-tricolor-fire-135); }
+.bg-grad-tricolor-fire-180  { background: var(--grad-tricolor-fire-180); }
+.bg-grad-tricolor-fire-225  { background: var(--grad-tricolor-fire-225); }
+.bg-grad-tricolor-fire-270  { background: var(--grad-tricolor-fire-270); }
+.bg-grad-tricolor-fire-315  { background: var(--grad-tricolor-fire-315); }
+
+.bg-grad-deep-rose-0    { background: var(--grad-deep-rose-0); }
+.bg-grad-deep-rose-45   { background: var(--grad-deep-rose-45); }
+.bg-grad-deep-rose-90   { background: var(--grad-deep-rose-90); }
+.bg-grad-deep-rose-135  { background: var(--grad-deep-rose-135); }
+.bg-grad-deep-rose-180  { background: var(--grad-deep-rose-180); }
+.bg-grad-deep-rose-225  { background: var(--grad-deep-rose-225); }
+.bg-grad-deep-rose-270  { background: var(--grad-deep-rose-270); }
+.bg-grad-deep-rose-315  { background: var(--grad-deep-rose-315); }
+
+.bg-grad-muted-petal-0   { background: var(--grad-muted-petal-0); }
+.bg-grad-muted-petal-45  { background: var(--grad-muted-petal-45); }
+.bg-grad-muted-petal-90  { background: var(--grad-muted-petal-90); }
+.bg-grad-muted-petal-135 { background: var(--grad-muted-petal-135); }
+.bg-grad-muted-petal-180 { background: var(--grad-muted-petal-180); }
+.bg-grad-muted-petal-225 { background: var(--grad-muted-petal-225); }
+.bg-grad-muted-petal-270 { background: var(--grad-muted-petal-270); }
+.bg-grad-muted-petal-315 { background: var(--grad-muted-petal-315); }
+
+.bg-scrim-bottom  { background: var(--grad-scrim-bottom); }
+.bg-scrim-top     { background: var(--grad-scrim-top); }
+.bg-scrim-left    { background: var(--grad-scrim-left); }
+.bg-scrim-right   { background: var(--grad-scrim-right); }
+.bg-scrim-rose    { background: var(--grad-scrim-rose); }
+
+.text-grad-rose-bloom {
+  background: var(--grad-rose-bloom-135);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-grad-pepper-gold {
+  background: var(--grad-pepper-gold-135);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-grad-tricolor-fire {
+  background: var(--grad-tricolor-fire-135);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
