@@ -7,8 +7,4 @@ export const navItems = [
     label: "Nearby",
     href: "/nearby",
   },
-  {
-    label: "Tags",
-    href: "/tag",
-  },
 ];
