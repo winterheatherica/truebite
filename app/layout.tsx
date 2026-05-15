@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingAds from "@/components/FloatingAds";
-
 export const metadata: Metadata = {
   title: {
     default: "TrueBite",
@@ -22,13 +18,7 @@ export default function RootLayout({
     <html lang="id">
       <body className="min-h-screen bg-rp-background text-rp-foreground">
         <div className="flex min-h-screen flex-col">
-          <Navbar />
-
-          <main className="flex-1">{children}</main>
-
-          <Footer />
-          
-          <FloatingAds />
+          {children}
         </div>
       </body>
     </html>

@@ -21,7 +21,7 @@ export default function DesktopNav({ isScrolled }: DesktopNavProps) {
             duration-200
             hover:bg-rp-primary-pale
             hover:text-rp-primary-dark
-            ${isScrolled ? "text-rp-foreground" : "text-[#FDF8F5]"}
+            ${isScrolled ? "text-rp-foreground" : "text-rp-background"}
           `}
         >
           {item.label}
