@@ -10,7 +10,13 @@ import NavbarToggle from "./NavbarToggle";
 import Portal from "./Portal";
 import useScrolled from "./useScrolled";
 
-export default function Navbar() {
+export type NavUser = {
+  name: string;
+  username: string;
+  role: "admin" | "user";
+} | null;
+
+export default function Navbar({ user }: { user: NavUser }) {
   const pathname = usePathname();
   const scrolled = useScrolled(0);
 
@@ -34,7 +40,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 lg:px-8">
         <NavbarLogo isScrolled={scrolled} />
 
-        <DesktopNav isScrolled={scrolled} />
+        <DesktopNav isScrolled={scrolled} user={user} />
 
         <div className="lg:hidden">
           <NavbarToggle
@@ -49,6 +55,7 @@ export default function Navbar() {
         <MobileNav
           open={openMobile}
           onRequestClose={() => setOpenMobile(false)}
+          user={user}
         />
       </Portal>
     </header>

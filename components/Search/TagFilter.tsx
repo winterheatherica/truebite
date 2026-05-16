@@ -1,6 +1,6 @@
 "use client";
 
-import type { Tag } from "@/data/dummy";
+import type { Tag } from "@/lib/types/restaurant";
 
 type Props = {
   tags: Tag[];
@@ -15,7 +15,7 @@ export default function TagFilter({ tags, selected, onToggle }: Props) {
         const active = selected.includes(tag.slug);
         return (
           <button
-            key={tag.id}
+            key={String(tag.id)}
             onClick={() => onToggle(tag.slug)}
             className={`rounded-full px-3.5 py-2 text-xs font-medium transition-all duration-200 ${
               active

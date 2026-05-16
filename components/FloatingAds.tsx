@@ -1,76 +1,77 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import SideAd from "@/components/Restaurant/SideAd";
+
+const AD_HEIGHT = 600;
+const FOOTER_MARGIN = 20;
+const VERTICAL_OFFSET = 40;
+const MIN_VIEWPORT_WIDTH = 1480;
 
 export default function FloatingAds() {
   const pathname = usePathname();
-  const [adPosition, setAdPosition] = useState<"fixed" | "absolute">("fixed");
+  const [top, setTop] = useState<number | null>(null);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
-  const footerRef = useRef<HTMLElement | null>(null);
 
   const isRestaurantPage = pathname.startsWith("/restaurant/");
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1480);
-    };
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    const check = () => setIsLargeScreen(window.innerWidth >= MIN_VIEWPORT_WIDTH);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
-    if (!isRestaurantPage || !isLargeScreen) return;
+    if (!isRestaurantPage || !isLargeScreen) {
+      setTop(null);
+      return;
+    }
 
-    footerRef.current = document.querySelector("footer");
+    const footer = document.querySelector("footer");
+    if (!footer) return;
 
-    const handleScroll = () => {
-      if (!footerRef.current) return;
+    let rafId = 0;
 
-      const footerRect = footerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const buffer = 50;
+    const compute = () => {
+      const vh = window.innerHeight;
+      const defaultTop = vh / 2 - AD_HEIGHT / 2 + VERTICAL_OFFSET;
+      const footerTop = footer.getBoundingClientRect().top;
+      const maxTop = footerTop - AD_HEIGHT - FOOTER_MARGIN;
 
-      if (footerRect.top < windowHeight - buffer) {
-        setAdPosition("absolute");
-      } else {
-        setAdPosition("fixed");
-      }
+      setTop(Math.min(defaultTop, maxTop));
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    handleScroll();
+    const schedule = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(compute);
+    };
+
+    compute();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
     };
   }, [isRestaurantPage, isLargeScreen]);
 
-  if (!isRestaurantPage || !isLargeScreen) return null;
+  if (!isRestaurantPage || !isLargeScreen || top === null) return null;
 
   return (
     <div className="pointer-events-none">
       <div
-        className={`pointer-events-auto transition-all duration-300 ease-out ${
-          adPosition === "fixed"
-            ? "fixed left-2 top-[calc(50vh+40px)] -translate-y-1/2"
-            : "fixed left-2 bottom-[var(--footer-height,400px)]"
-        }`}
-        style={{ zIndex: 10 }}
+        className="pointer-events-auto fixed left-2"
+        style={{ top, zIndex: 10 }}
       >
         <SideAd />
       </div>
       <div
-        className={`pointer-events-auto transition-all duration-300 ease-out ${
-          adPosition === "fixed"
-            ? "fixed right-2 top-[calc(50vh+40px)] -translate-y-1/2"
-            : "fixed right-2 bottom-[var(--footer-height,400px)]"
-        }`}
-        style={{ zIndex: 10 }}
+        className="pointer-events-auto fixed right-2"
+        style={{ top, zIndex: 10 }}
       >
         <SideAd />
       </div>

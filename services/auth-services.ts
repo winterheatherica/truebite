@@ -2,15 +2,18 @@ import { RegisterFormValues, LoginFormValues } from "@/lib/schemas/auth-schema";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 export const authService = {
-  // Tambahkan parameter 'supabase'
-  async signUp(supabase: SupabaseClient, { email, password }: RegisterFormValues) {
+  async signUp(
+    supabase: SupabaseClient,
+    { email, password, name, username }: RegisterFormValues
+  ) {
     const origin = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
     return await supabase.auth.signUp({
       email,
       password,
-      options: { 
-        emailRedirectTo: `${origin}/auth/callback` 
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+        data: { name, username },
       },
     });
   },
@@ -21,5 +24,5 @@ export const authService = {
 
   async signOut(supabase: SupabaseClient) {
     await supabase.auth.signOut();
-  }
+  },
 };

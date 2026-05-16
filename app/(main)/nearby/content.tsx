@@ -2,17 +2,20 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { restaurants } from "@/data/dummy";
+import type { Restaurant } from "@/lib/types/restaurant";
 import RegionSelector from "@/components/Nearby/RegionSelector";
 import NearbyList from "@/components/Nearby/NearbyList";
 
-export default function NearbyPageContent() {
+type Props = {
+  restaurants: Restaurant[];
+  districts: string[];
+};
+
+export default function NearbyPageContent({ restaurants, districts }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const selectedDistrict = searchParams.get("district") || "";
-
-  const allDistricts = [...new Set(restaurants.map((r) => r.district))].sort();
 
   function handleDistrictChange(district: string) {
     const sp = new URLSearchParams();
@@ -23,7 +26,7 @@ export default function NearbyPageContent() {
   const filtered = useMemo(() => {
     if (!selectedDistrict) return restaurants;
     return restaurants.filter((r) => r.district === selectedDistrict);
-  }, [selectedDistrict]);
+  }, [selectedDistrict, restaurants]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 lg:py-12">
@@ -38,7 +41,7 @@ export default function NearbyPageContent() {
 
       <div className="mb-10 mt-8">
         <RegionSelector
-          districts={allDistricts}
+          districts={districts}
           selectedDistrict={selectedDistrict}
           onChange={handleDistrictChange}
         />

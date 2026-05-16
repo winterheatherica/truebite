@@ -1,9 +1,9 @@
-import { restaurants } from "@/data/dummy";
 import HeroSearch from "@/components/Homepage/HeroSearch";
 import FeaturedRestaurants from "@/components/Homepage/FeaturedRestaurants";
+import { getFeaturedRestaurants } from "@/services/restaurant-service";
 
-export default function Home() {
-  const featured = restaurants.filter((r) => r.featured);
+export default async function Home() {
+  const featured = await getFeaturedRestaurants();
 
   return (
     <>

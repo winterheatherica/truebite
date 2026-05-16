@@ -2,12 +2,17 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { restaurants, tags } from "@/data/dummy";
+import type { Restaurant, Tag } from "@/lib/types/restaurant";
 import SearchBar from "@/components/Search/SearchBar";
 import TagFilter from "@/components/Search/TagFilter";
 import SearchResults from "@/components/Search/SearchResults";
 
-export default function SearchPageContent() {
+type Props = {
+  restaurants: Restaurant[];
+  tags: Tag[];
+};
+
+export default function SearchPageContent({ restaurants, tags }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -43,18 +48,18 @@ export default function SearchPageContent() {
         (r) =>
           r.name.toLowerCase().includes(q) ||
           r.description.toLowerCase().includes(q) ||
-          r.tags.some((t) => t.toLowerCase().includes(q)),
+          r.tags.some((t) => t.name.toLowerCase().includes(q) || t.slug.toLowerCase().includes(q)),
       );
     }
 
     if (selectedTags.length > 0) {
       result = result.filter((r) =>
-        selectedTags.some((st) => r.tags.includes(st)),
+        selectedTags.some((st) => r.tags.some((t) => t.slug === st)),
       );
     }
 
     return result;
-  }, [query, selectedTags]);
+  }, [query, selectedTags, restaurants]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 lg:py-12">

@@ -1,5 +1,5 @@
 type SentimentBadgeProps = {
-  sentiment: "positive" | "neutral" | "negative";
+  sentiment: "positive" | "neutral" | "negative" | null;
 };
 
 const config = {
@@ -18,6 +18,7 @@ const config = {
 };
 
 export default function SentimentBadge({ sentiment }: SentimentBadgeProps) {
+  if (!sentiment) return null;
   const c = config[sentiment];
   return (
     <span

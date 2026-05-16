@@ -13,85 +13,76 @@ type Props = {
   restaurantName: string;
 };
 
+type ScreenSize = "tiny" | "narrow" | "wide";
+
 export default function ImageCarousel({ images, restaurantName }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [screenSize, setScreenSize] = useState<ScreenSize>("narrow");
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1480);
+    const check = () => {
+      const w = window.innerWidth;
+      if (w < 400) setScreenSize("tiny");
+      else if (w >= 1480) setScreenSize("wide");
+      else setScreenSize("narrow");
     };
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   const nonAdImages = images.filter((img) => img?.alt !== "Iklan");
   const adImages = images.filter((img) => img?.alt === "Iklan");
 
-  const getAlternatingImages = () => {
-    if (isLargeScreen) {
-      return {
-        images: [
-          images[currentIndex],
-          images[(currentIndex + 1) % images.length],
-          images[(currentIndex + 2) % images.length],
-        ],
-        total: images.length,
-      };
+  const sequence: Image[] = (() => {
+    if (adImages.length === 0) return images;
+
+    if (screenSize === "wide") {
+      return [...nonAdImages.slice(0, 1), ...adImages, ...nonAdImages.slice(1)];
     }
 
-    if (adImages.length === 0) {
-      return {
-        images: [
-          images[currentIndex],
-          images[(currentIndex + 1) % images.length],
-          images[(currentIndex + 2) % images.length],
-        ],
-        total: images.length,
-      };
-    }
-
-    const result: Image[] = [];
-    let imageIdx = 0;
-    let adIdx = 0;
-
-    for (let i = 0; i < 6; i++) {
-      if (i % 2 === 0) {
-        result.push(adImages[adIdx++ % adImages.length]);
-      } else {
-        result.push(nonAdImages[imageIdx++ % nonAdImages.length]);
+    if (screenSize === "tiny") {
+      const out: Image[] = [];
+      for (let i = 0; i < nonAdImages.length; i += 2) {
+        out.push(nonAdImages[i]);
+        if (i + 1 < nonAdImages.length) out.push(nonAdImages[i + 1]);
+        out.push(adImages[Math.floor(i / 2) % adImages.length]);
       }
+      return out;
     }
 
-    return {
-      images: [
-        result[currentIndex % result.length],
-        result[(currentIndex + 1) % result.length],
-        result[(currentIndex + 2) % result.length],
-      ],
-      total: result.length,
-    };
-  };
+    const out: Image[] = [];
+    for (let i = 0; i < nonAdImages.length; i++) {
+      out.push(nonAdImages[i]);
+      out.push(adImages[i % adImages.length]);
+    }
+    return out;
+  })();
 
-  const { images: displayImages, total: totalImages } = getAlternatingImages();
+  const windowSize = screenSize === "tiny" ? 1 : 3;
+  const totalSlots = sequence.length;
+  const maxIndex = Math.max(0, totalSlots - windowSize);
+  const safeIndex = Math.min(currentIndex, maxIndex);
+  const displayImages = sequence.slice(safeIndex, safeIndex + windowSize);
 
   function handlePrev() {
-    setCurrentIndex((prev) => (prev === 0 ? totalImages - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   }
 
   function handleNext() {
-    setCurrentIndex((prev) => (prev === totalImages - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   }
+
+  const gridColsClass = screenSize === "tiny" ? "grid-cols-1" : "grid-cols-3";
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-3 lg:gap-4">
+      <div className={`grid gap-3 lg:gap-4 ${gridColsClass}`}>
         {displayImages.map((img, idx) => {
           const isAd = img?.alt === "Iklan";
           return (
             <div
-              key={`${currentIndex}-${idx}`}
+              key={`${safeIndex}-${idx}`}
               className="relative aspect-square overflow-hidden rounded-2xl"
             >
               {isAd && (
@@ -110,8 +101,7 @@ export default function ImageCarousel({ images, restaurantName }: Props) {
         })}
       </div>
 
-      {/* Navigation controls below images */}
-      {totalImages > 3 && (
+      {totalSlots > windowSize && (
         <div className="flex items-center justify-center gap-4">
           <button
             onClick={handlePrev}
@@ -129,18 +119,17 @@ export default function ImageCarousel({ images, restaurantName }: Props) {
             </svg>
           </button>
 
-          {/* Indicator dots */}
           <div className="flex items-center gap-2">
-            {Array.from({ length: totalImages }).map((_, idx) => (
+            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
                 className={`h-2 rounded-full transition-all duration-200 ${
-                  idx === currentIndex
+                  idx === safeIndex
                     ? "w-6 bg-rp-primary"
                     : "w-2 bg-rp-muted/30 hover:bg-rp-muted/50"
                 }`}
-                aria-label={`Go to image ${idx + 1}`}
+                aria-label={`Go to position ${idx + 1}`}
               />
             ))}
           </div>

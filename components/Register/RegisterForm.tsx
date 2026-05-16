@@ -18,14 +18,46 @@ export default function RegisterForm() {
 
       <form action={action} className="space-y-4">
         <div className="space-y-2">
+          <label htmlFor="name" className="block text-sm font-semibold text-rp-dark-2 tracking-wide">
+            Nama
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            disabled={isPending}
+            placeholder="Nama lengkap kamu"
+            className="w-full px-4 py-2.5 border-2 border-rp-border rounded-lg text-rp-foreground bg-rp-secondary-pale hover:border-rp-primary focus:outline-none focus:border-rp-primary focus:shadow-lg focus:shadow-rp-primary/20 disabled:bg-gray-100 disabled:text-rp-muted disabled:cursor-not-allowed transition-all"
+          />
+          {state?.errors?.name && <p className="text-sm text-rp-destructive font-medium animate-pulse">{state.errors.name}</p>}
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="username" className="block text-sm font-semibold text-rp-dark-2 tracking-wide">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            disabled={isPending}
+            placeholder="huruf kecil, angka, underscore"
+            className="w-full px-4 py-2.5 border-2 border-rp-border rounded-lg text-rp-foreground bg-rp-secondary-pale hover:border-rp-primary focus:outline-none focus:border-rp-primary focus:shadow-lg focus:shadow-rp-primary/20 disabled:bg-gray-100 disabled:text-rp-muted disabled:cursor-not-allowed transition-all"
+          />
+          {state?.errors?.username && <p className="text-sm text-rp-destructive font-medium animate-pulse">{state.errors.username}</p>}
+        </div>
+
+        <div className="space-y-2">
           <label htmlFor="email" className="block text-sm font-semibold text-rp-dark-2 tracking-wide">
             Email
           </label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            required 
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
             disabled={isPending}
             placeholder="contoh@email.com"
             className="w-full px-4 py-2.5 border-2 border-rp-border rounded-lg text-rp-foreground bg-rp-secondary-pale hover:border-rp-primary focus:outline-none focus:border-rp-primary focus:shadow-lg focus:shadow-rp-primary/20 disabled:bg-gray-100 disabled:text-rp-muted disabled:cursor-not-allowed transition-all"

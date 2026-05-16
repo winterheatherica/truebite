@@ -1,55 +1,73 @@
-import type { Restaurant } from "@/data/dummy";
+import type { Restaurant } from "@/lib/types/restaurant";
 import StarRating from "@/components/ui/StarRating";
 import ImageCarousel from "./ImageCarousel";
 
 type Props = {
   restaurant: Restaurant;
-  averageRating: number;
 };
 
-export default function RestaurantDetail({
-  restaurant,
-  averageRating,
-}: Props) {
+export default function RestaurantDetail({ restaurant }: Props) {
   const mapLink = `https://www.google.com/maps/search/?api=1&query=${restaurant.latitude},${restaurant.longitude}`;
+
+  const locationLine = [restaurant.district, restaurant.city, restaurant.province]
+    .filter(Boolean)
+    .join(", ");
+
+  const carouselImages = [
+    ...(restaurant.photoUrl
+      ? [{ url: restaurant.photoUrl, alt: restaurant.name, title: restaurant.name }]
+      : []),
+    ...restaurant.images,
+    {
+      url: "https://placehold.co/800x800/f5c518/1c1410?text=IKLAN",
+      alt: "Iklan",
+      title: "Iklan",
+    },
+  ];
 
   return (
     <div>
       <div className="space-y-8">
-        {/* Title and Rating */}
         <div>
-          <h1 className="text-2xl font-bold text-rp-foreground lg:text-3xl">
-            {restaurant.name}
-          </h1>
+          <div className="flex items-start gap-3">
+            <h1 className="text-2xl font-bold text-rp-foreground lg:text-3xl">
+              {restaurant.name}
+            </h1>
+            {restaurant.featured && (
+              <span className="bg-grad-pepper-gold rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-md mt-1">
+                ★ Featured
+              </span>
+            )}
+          </div>
           <div className="mt-3 flex items-center gap-2">
-            <StarRating rating={averageRating} size="md" />
+            <StarRating rating={restaurant.averageRating} size="md" />
             <span className="text-sm font-medium text-rp-muted">
-              {averageRating}
+              {restaurant.averageRating > 0 ? restaurant.averageRating : "Belum ada review"}
             </span>
+            {restaurant.reviewCount > 0 && (
+              <span className="text-xs text-rp-muted">({restaurant.reviewCount} review)</span>
+            )}
           </div>
         </div>
 
-        {/* Description */}
         <p className="text-sm leading-relaxed text-rp-foreground/70">
           {restaurant.description}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2">
           {restaurant.tags.map((tag) => (
             <span
-              key={tag}
-              className="rounded-full bg-grad-blush-mist px-3.5 py-1.5 text-xs font-medium text-rp-primary"
+              key={tag.slug}
+              className="bg-grad-blush-mist rounded-full px-3.5 py-1.5 text-xs font-medium text-rp-primary"
             >
-              {tag}
+              {tag.name}
             </span>
           ))}
         </div>
 
-        {/* Image Carousel */}
         {restaurant.images && restaurant.images.length > 0 ? (
           <ImageCarousel
-            images={restaurant.images}
+            images={carouselImages}
             restaurantName={restaurant.name}
           />
         ) : (
@@ -62,17 +80,8 @@ export default function RestaurantDetail({
           </div>
         )}
 
-        {/* Info Box */}
         <div className="grid grid-cols-1 gap-4 rounded-2xl border border-rp-border bg-rp-background p-5 lg:grid-cols-2">
           <div className="space-y-3">
-            <div>
-              <span className="text-xs font-medium uppercase tracking-wider text-rp-muted">
-                Jam Buka
-              </span>
-              <p className="mt-0.5 text-sm font-medium text-rp-foreground">
-                {restaurant.openingHours}
-              </p>
-            </div>
             <div>
               <span className="text-xs font-medium uppercase tracking-wider text-rp-muted">
                 Alamat
@@ -80,10 +89,9 @@ export default function RestaurantDetail({
               <p className="mt-0.5 text-sm text-rp-foreground">
                 {restaurant.address}
               </p>
-              <p className="text-xs text-rp-muted">
-                {restaurant.district}, {restaurant.city},{" "}
-                {restaurant.province}
-              </p>
+              {locationLine && (
+                <p className="text-xs text-rp-muted">{locationLine}</p>
+              )}
             </div>
           </div>
           <div className="flex items-end">

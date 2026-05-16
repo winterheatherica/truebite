@@ -1,6 +1,7 @@
-import type { Restaurant } from "@/data/dummy";
+import type { Restaurant } from "@/lib/types/restaurant";
 import RestaurantCard from "@/components/Restaurant/RestaurantCard";
 import GoogleAdCard from "@/components/Restaurant/GoogleAdCard";
+import { withAds } from "@/lib/utils/withAds";
 
 type Props = {
   restaurants: Restaurant[];
@@ -21,6 +22,9 @@ export default function SearchResults({ restaurants, query }: Props) {
     );
   }
 
+  const sorted = [...restaurants].sort((a, b) => Number(b.featured) - Number(a.featured));
+  const feed = withAds(sorted);
+
   return (
     <div>
       <p className="mb-6 text-sm text-rp-muted">
@@ -28,13 +32,13 @@ export default function SearchResults({ restaurants, query }: Props) {
         {query && <> untuk "{query}"</>}
       </p>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {restaurants.slice(0, 2).map((r) => (
-          <RestaurantCard key={r.id} restaurant={r} />
-        ))}
-        {restaurants.length > 2 && <GoogleAdCard />}
-        {restaurants.slice(2).map((r) => (
-          <RestaurantCard key={r.id} restaurant={r} />
-        ))}
+        {feed.map((cell) =>
+          cell.kind === "item" ? (
+            <RestaurantCard key={cell.value.id} restaurant={cell.value} />
+          ) : (
+            <GoogleAdCard key={cell.key} />
+          ),
+        )}
       </div>
     </div>
   );
