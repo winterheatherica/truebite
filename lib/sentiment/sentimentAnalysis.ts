@@ -1,25 +1,26 @@
 import { pipeline } from '@xenova/transformers';
 
 class SentimentAnalysis {
-    private model: any;
-    
-    constructor() {
-        this.model = null;
-    }
+    private static pipelinePromise: Promise<any> | null = null;
+    private static model: any = null;
 
-    async initialize() {
-        this.model = await pipeline('sentiment-analysis');
-    }
-
-    async analyze(text: string) {
-        if (!this.model) {
-            throw new Error('Model not initialized');
+    static async initialize() {
+        if (this.model) return this.model;
+        
+        if (!this.pipelinePromise) {
+            this.pipelinePromise = pipeline('sentiment-analysis');
         }
-        return await this.model(text);
+        
+        this.model = await this.pipelinePromise;
+        return this.model;
+    }
+
+    static async analyze(text: string) {
+        const model = await this.initialize();
+        return await model(text);
     }
 }
 
 export async function analyzeSentiment(text: string) {
-    const sentimentAnalysis = new SentimentAnalysis();
-    return sentimentAnalysis.initialize().then(() => sentimentAnalysis.analyze(text));
+    return SentimentAnalysis.analyze(text);
 }
