@@ -7,11 +7,14 @@ type Props = { restaurant: Restaurant };
 export default function RestaurantCard({ restaurant }: Props) {
   const avg = restaurant.averageRating;
   const isFeatured = restaurant.featured;
+  const locationLine = [restaurant.district, restaurant.city, restaurant.province]
+    .filter(Boolean)
+    .join(", ");
 
   return (
     <Link
       href={`/restaurant/${restaurant.slug}`}
-      className={`group relative block overflow-hidden rounded-2xl bg-rp-background transition-all duration-200 hover:-translate-y-0.5 ${
+      className={`group relative flex aspect-square flex-col overflow-hidden rounded-2xl bg-rp-background transition-all duration-200 hover:-translate-y-0.5 ${
         isFeatured
           ? "border-2 border-rp-accent shadow-[0_4px_20px_rgba(245,197,24,0.18)] hover:shadow-[0_8px_30px_rgba(245,197,24,0.28)]"
           : "border border-rp-border hover:shadow-lg hover:shadow-rp-primary/5"
@@ -26,7 +29,7 @@ export default function RestaurantCard({ restaurant }: Props) {
         </div>
       )}
 
-      <div className="aspect-[3/2] overflow-hidden">
+      <div className="aspect-[10/7] shrink-0 overflow-hidden">
         <img
           src={restaurant.photoUrl}
           alt={restaurant.name}
@@ -34,35 +37,37 @@ export default function RestaurantCard({ restaurant }: Props) {
         />
       </div>
 
-      <div className="space-y-3 p-5">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="font-semibold text-rp-foreground leading-tight">
+      <div className="flex min-h-0 flex-1 flex-col p-4">
+        <div>
+          <h3 className="truncate font-semibold text-rp-foreground leading-tight">
             {restaurant.name}
           </h3>
-          <span className="shrink-0 text-xs text-rp-muted">
-            {restaurant.district}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <StarRating rating={avg} size="sm" />
-          <span className="text-xs font-medium text-rp-muted">{avg}</span>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {restaurant.tags.slice(0, 3).map((tag) => (
-            <span
-              key={tag.slug}
-              className="bg-grad-blush-mist rounded-full px-2.5 py-0.5 text-[11px] font-medium text-rp-primary"
-            >
-              {tag.name}
-            </span>
-          ))}
-          {restaurant.tags.length > 3 && (
-            <span className="text-[11px] text-rp-muted">
-              +{restaurant.tags.length - 3}
-            </span>
+          {locationLine && (
+            <p className="mt-1 truncate text-xs text-rp-muted">{locationLine}</p>
           )}
+        </div>
+
+        <div className="mt-auto space-y-2 pt-3">
+          <div className="flex items-center gap-2">
+            <StarRating rating={avg} size="sm" />
+            <span className="text-xs font-medium text-rp-muted">{avg}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 max-[399px]:hidden min-[640px]:max-[832px]:hidden min-[1024px]:max-[1279px]:hidden">
+            {restaurant.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag.slug}
+                className="bg-grad-blush-mist rounded-full px-2.5 py-0.5 text-[11px] font-medium text-rp-primary"
+              >
+                {tag.name}
+              </span>
+            ))}
+            {restaurant.tags.length > 3 && (
+              <span className="text-[11px] text-rp-muted">
+                +{restaurant.tags.length - 3}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </Link>
