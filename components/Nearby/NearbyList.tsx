@@ -5,18 +5,29 @@ import { withAds } from "@/lib/utils/withAds";
 
 type Props = {
   restaurants: Restaurant[];
+  province: string;
+  city: string;
   district: string;
 };
 
-export default function NearbyList({ restaurants, district }: Props) {
+function describeScope({ province, city, district }: Omit<Props, "restaurants">) {
+  if (district) return `Kecamatan ${district}, ${city}`;
+  if (city) return `${city}, ${province}`;
+  if (province) return province;
+  return "seluruh Indonesia";
+}
+
+export default function NearbyList({ restaurants, province, city, district }: Props) {
+  const scope = describeScope({ province, city, district });
+
   if (restaurants.length === 0) {
     return (
       <div className="py-20 text-center">
         <p className="text-lg font-medium text-rp-foreground">
-          Tidak ada warung di kecamatan ini
+          Tidak ada warung di {scope}
         </p>
         <p className="mt-2 text-sm text-rp-muted">
-          Coba pilih kecamatan lain
+          Coba pilih lokasi lain atau naik satu level di breadcrumb.
         </p>
       </div>
     );
@@ -27,9 +38,7 @@ export default function NearbyList({ restaurants, district }: Props) {
   return (
     <div>
       <p className="mb-6 text-sm text-rp-muted">
-        {district
-          ? `${restaurants.length} warung di Kecamatan ${district}`
-          : `${restaurants.length} warung di sekitarmu`}
+        {restaurants.length} warung di {scope}
       </p>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {feed.map((cell) =>

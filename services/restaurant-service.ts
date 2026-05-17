@@ -127,16 +127,6 @@ export async function getRestaurantById(id: string): Promise<Restaurant | null> 
   return mapRow(data)
 }
 
-export async function getAllDistricts(): Promise<string[]> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('Restaurants')
-    .select('Districts:Districts!Restaurants_districtId_fkey ( name )')
-  if (error) throw new Error(`Gagal mengambil daftar district: ${error.message}`)
-  const names = (data ?? []).map((r: any) => r.Districts?.name).filter(Boolean) as string[]
-  return Array.from(new Set(names)).sort()
-}
-
 async function syncRestaurantTags(restaurantId: string, tagIds: number[]) {
   const supabase = await createClient()
   await supabase.from('Restaurant_tags').delete().eq('restaurantId', restaurantId)

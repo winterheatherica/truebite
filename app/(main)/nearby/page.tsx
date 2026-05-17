@@ -1,12 +1,9 @@
 import { Suspense } from "react";
-import { getAllRestaurants, getAllDistricts } from "@/services/restaurant-service";
+import { getAllRestaurants } from "@/services/restaurant-service";
 import NearbyPageContent from "./content";
 
 export default async function NearbyPage() {
-  const [restaurants, districts] = await Promise.all([
-    getAllRestaurants(),
-    getAllDistricts(),
-  ]);
+  const restaurants = await getAllRestaurants();
 
   return (
     <Suspense
@@ -16,7 +13,7 @@ export default async function NearbyPage() {
         </div>
       }
     >
-      <NearbyPageContent restaurants={restaurants} districts={districts} />
+      <NearbyPageContent restaurants={restaurants} />
     </Suspense>
   );
 }

@@ -3,30 +3,61 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo } from "react";
 import type { Restaurant } from "@/lib/types/restaurant";
-import RegionSelector from "@/components/Nearby/RegionSelector";
+import LocationDrilldown, { type LocationTree } from "@/components/Nearby/LocationDrilldown";
 import NearbyList from "@/components/Nearby/NearbyList";
 
 type Props = {
   restaurants: Restaurant[];
-  districts: string[];
 };
 
-export default function NearbyPageContent({ restaurants, districts }: Props) {
+export default function NearbyPageContent({ restaurants }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const selectedDistrict = searchParams.get("district") || "";
+  const province = searchParams.get("province") || "";
+  const city = searchParams.get("city") || "";
+  const district = searchParams.get("district") || "";
 
-  function handleDistrictChange(district: string) {
-    const sp = new URLSearchParams();
-    if (district) sp.set("district", district);
-    router.push(`/nearby?${sp.toString()}`);
+  const tree: LocationTree = useMemo(() => {
+    const t: LocationTree = new Map();
+    for (const r of restaurants) {
+      if (!r.province) continue;
+      if (!t.has(r.province)) t.set(r.province, new Map());
+      const cityMap = t.get(r.province)!;
+      if (!r.city) continue;
+      if (!cityMap.has(r.city)) cityMap.set(r.city, new Map());
+      const distMap = cityMap.get(r.city)!;
+      if (!r.district) continue;
+      distMap.set(r.district, (distMap.get(r.district) ?? 0) + 1);
+    }
+    return t;
+  }, [restaurants]);
+
+  function navigate(next: {
+    province?: string;
+    city?: string;
+    district?: string;
+  }) {
+    const params = new URLSearchParams();
+    if (next.province) {
+      params.set("province", next.province);
+      if (next.city) {
+        params.set("city", next.city);
+        if (next.district) params.set("district", next.district);
+      }
+    }
+    const qs = params.toString();
+    router.push(qs ? `/nearby?${qs}` : "/nearby");
   }
 
   const filtered = useMemo(() => {
-    if (!selectedDistrict) return restaurants;
-    return restaurants.filter((r) => r.district === selectedDistrict);
-  }, [selectedDistrict, restaurants]);
+    return restaurants.filter((r) => {
+      if (province && r.province !== province) return false;
+      if (city && r.city !== city) return false;
+      if (district && r.district !== district) return false;
+      return true;
+    });
+  }, [restaurants, province, city, district]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 lg:py-12">
@@ -35,19 +66,26 @@ export default function NearbyPageContent({ restaurants, districts }: Props) {
           Warung di Sekitar
         </h1>
         <p className="mt-2 text-sm text-rp-muted">
-          Temukan kuliner terdekat berdasarkan kecamatan
+          Telusuri kuliner berdasarkan provinsi, kota/kabupaten, lalu kecamatan
         </p>
       </div>
 
       <div className="mb-10 mt-8">
-        <RegionSelector
-          districts={districts}
-          selectedDistrict={selectedDistrict}
-          onChange={handleDistrictChange}
+        <LocationDrilldown
+          tree={tree}
+          province={province}
+          city={city}
+          district={district}
+          onNavigate={navigate}
         />
       </div>
 
-      <NearbyList restaurants={filtered} district={selectedDistrict} />
+      <NearbyList
+        restaurants={filtered}
+        province={province}
+        city={city}
+        district={district}
+      />
     </div>
   );
 }
