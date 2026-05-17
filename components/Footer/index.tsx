@@ -1,11 +1,14 @@
 import GridContent from "./GridContent";
 import BottomBar from "./BottomBar";
+import { getFooterPicks } from "@/services/footer-service";
 
-export default function Footer() {
+export default async function Footer() {
+  const picks = await getFooterPicks();
+
   return (
     <footer className="bg-[linear-gradient(135deg,#0D0808_0%,#1C1410_100%)] text-rp-muted">
       <div className="mx-auto max-w-7xl px-4 pt-16 pb-8 lg:px-8">
-        <GridContent />
+        <GridContent picks={picks} />
         <BottomBar />
       </div>
     </footer>

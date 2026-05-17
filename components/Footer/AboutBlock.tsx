@@ -13,9 +13,9 @@ export default function AboutBlock() {
         </div>
       </Link>
       <p className="text-sm leading-relaxed text-rp-muted">
-        TrueBite helps you discover the best places to eat around you. Curated
-        recommendations, honest reviews, and your next favorite meal &mdash; all
-        in one place.
+        TrueBite membantu kamu menemukan tempat makan terbaik di sekitarmu.
+        Rekomendasi pilihan, ulasan jujur, dan menu favorit berikutnya &mdash;
+        semua dalam satu tempat.
       </p>
     </div>
   );
